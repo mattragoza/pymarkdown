@@ -16,12 +16,10 @@ class RunCodeBlockCommand(sublime_plugin.TextCommand):
             stdout, stderr = run_code_block(code_block)
             fence_region = self.view.find('```', region.begin())
             if stderr:
-                stderr = '\n' + stderr
+                stderr = '\n```stderr\n' + stderr + '```'
                 self.view.insert(edit, fence_region.end(), stderr)
-                return
             if stdout:
-                stdout = '\n' + stdout
-                self.view.insert(edit, fence_region.end(), stdout)
+                stdout = '\n```stdout\n' + stdout + '```'
 
 
 def is_code_block_selected(view):
